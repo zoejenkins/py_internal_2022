@@ -1,52 +1,20 @@
 print("Welcome to the library!")
+
 books = {
-  
+  'Harry Potter': {
+    'Author: ' : 'J.K. Rowling',
+    'Pages: ' : '600',
+    'Genre: ' : 'Fantasy',
+    'Year: ' : '2000',
+  }
 }
 
 
-def main():
-  quit = False;
-  while quit == False:
-    choice = input("Please enter: \n (A) To add a book to the library \n (M) To modify the number of pages in an existing book \n (L) To print out the number of pages of a book \n (R) To remove a book from the library \n (P) To print out a list of every book in the library \n (Q) To quit \n");
-    
-    if (choice == "a") or (choice == "A"):
-      add();
-      stoploop();
-      
-    elif (choice == "m") or (choice == "M"):
-      modify();
-      stoploop();
-      
-    elif (choice == "l") or (choice == "L"):
-      printpage();
-      stoploop();
-      
-    elif (choice == "p") or (choice == "P"):
-      printall();
-      stoploop();
-      
-    elif (choice == "q") or (choice == "Q"):
-      quit = True;
-      print("Goodbye!");
-
-    elif (choice == "r") or (choice == "R"):
-      remove();
-      stoploop();
-
-    else:
-      valid_options = ["a", "A", "m", "M", "l", "L", "r", "R", "p", "P", "q", "Q"]
-      loop = True;
-      while loop == True:
-        print("Invalid input, please try again.");
-        choice = input("Please enter: \n (A) To add a book to the library \n (M) To modify the number of pages in an existing book \n (L) To print out the number of pages of a book \n (R) To remove a book from the library \n (P) To print out a list of every book in the library \n (Q) To quit \n");
-        if choice in valid_options:
-          loop = False;
-        elif choice not in valid_options:
-          loop = True;
-        
-
-
 def add():
+  """
+  Function for adding a book
+  Takes in values from users inputs and adds them to the 'books' dictionary
+  """
   introductions = ['Author: ', 'Pages: ', 'Genre: ', 'Year: ']
   title = input("Enter the books' name: ")
   author = input("Enter the author of {}: ".format(title))
@@ -87,19 +55,32 @@ def printpage():
 def printall():
   print(books)
 
-
-def stoploop():
-  end = input("Would you like to continue? Y/N: ")
-  ok = False;
-  while ok == False:
-    if (end == "N") or (end == "n"):
-      quit = True;
-      ok = True;
-    elif (end == "Y") or (end == "y"):
+def main():
+  quit = True
+  while quit == True:
+    choice = input("Please enter: \n (A) To add a book to the library \n (M) To modify the number of pages in an existing book \n (L) To print out the number of pages of a book \n (R) To remove a book from the library \n (P) To print out a list of every book in the library \n (Q) To quit \n");
+    
+    if choice == "a" or choice == "A":
+      add()
+      
+    elif (choice == "m") or (choice == "M"):
+      modify()
+      
+    elif (choice == "l") or (choice == "L"):
+      printpage()
+      
+    elif (choice == "p") or (choice == "P"):
+      printall();
+      
+    elif (choice == "q") or (choice == "Q"):
       quit = False;
-      ok = True;
+      print("Goodbye!");
+
+    elif (choice == "r") or (choice == "R"):
+      remove();
+
     else:
-      end = input("Invalid entry. please enter \"Y\" or \"N\"")
+      print("Invalid option, try again.")
 
 
 main()
