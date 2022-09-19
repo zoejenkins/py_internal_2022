@@ -43,12 +43,28 @@ def modify():
   """
   function that lets user access and modify the number of pages in a book of their choice
   """
+  maxpages = 3000000
+  minpages = 1
   booktomodify = str(input("For which book do you want to modify the number of pages? "))
   if booktomodify in books:
     print(booktomodify + " currently has " + books[booktomodify]["Pages: "] + " pages.")
-    newpagenumber = input("What do you want to update the number to? ")
-    books[booktomodify]["Pages: "] = newpagenumber
-    print(booktomodify + " now has " + books[booktomodify]["Pages: "] + " pages.")
+    invalidpages = True
+    while invalidpages == True:
+      newpagenumber = input("What do you want to update the number to? ")
+      try:
+        if int(newpagenumber) > int(maxpages):
+          print("ERROR: the book with the most pages has 3 million pages. The number you entered was higher than this.")
+          invalidpages = True
+        elif int(newpagenumber) < int(minpages):
+          print("ERROR: Your book can't have less than 1 page")
+          invalidpages = True
+        else:
+          books[booktomodify]["Pages: "] = newpagenumber
+          print(booktomodify + " now has " + books[booktomodify]["Pages: "] + " pages.")
+          invalidpages = False
+      except ValueError: 
+        print("Your page value must be a number.")
+        invalidpages = True
 
   elif booktomodify not in books:
     print("That book does not exist in the library. Make sure you spelled everything correctly.")
@@ -75,7 +91,7 @@ def main():
   """
   quit = True
   while quit == True:
-    choice = input("Please enter: \n (A) To add a book to the library \n (M) To modify the number of pages in an existing book \n (L) To print out the number of pages of a book \n (R) To remove a book from the library \n (P) To print out a list of every book in the library \n (Q) To quit \n");
+    choice = input("Please enter:\n (A) To add a book to the library\n (M) To modify the number of pages in an existing book\n (L) To print out the number of pages of a book\n (R) To remove a book from the library\n (P) To print out a list of every book in the library\n (Q) To quit\n");
     
     if choice == "a" or choice == "A":
       add()
@@ -98,8 +114,6 @@ def main():
 
     else:
       print("Invalid option, try again.")
-
-
 
 # calls the main function
 main()
