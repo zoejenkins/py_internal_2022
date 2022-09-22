@@ -19,10 +19,21 @@ def add():
   """
   introductions = ['Author: ', 'Pages: ', 'Genre: ', 'Year: ']
   title = input("Enter the books' name: ")
-  author = input("Enter the author of {}: ".format(title))
+  invalid_author = True
+  while invalid_author == True:
+    author = input("Enter the author of {}: ".format(title))
+    try:
+      if len(author) > 1:
+        print("Author name must be longer than 0 characters.")
+        invalid_author = True;
+    except:
+      if author
   year = input("Enter the year {} was published: ".format(title))
   genre = input("Enter the genre of {}: ".format(title))
-  pages = input("Enter how many pages {} has: ".format(title))
+  play = True
+  while play == True:
+    pages = input("Enter how many pages {} has: ".format(title))
+    
   intro_values = [str(author), str(pages), str(genre), str(year)]
   book_info = dict(zip(introductions,intro_values))
   new_book = {title : book_info}
@@ -77,7 +88,7 @@ def printpage():
   if pagetoprint in books:
     print('{} has '.format(pagetoprint) + books[pagetoprint]['Pages: '] + ' pages.')
   elif pagetoprint not in books:
-    print("That book does not exist in the library")
+    print("That book does not exist in the library.")
 
 def printall():
   """
