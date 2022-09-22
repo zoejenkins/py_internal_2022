@@ -18,22 +18,61 @@ def add():
   Takes in values from users inputs and adds them to the 'books' dictionary as a nested dictionary
   """
   introductions = ['Author: ', 'Pages: ', 'Genre: ', 'Year: ']
+  
   title = input("Enter the books' name: ")
-  invalid_author = True
-  while invalid_author == True:
+  
+  invalidauthor = True;
+  while invalidauthor == True:
     author = input("Enter the author of {}: ".format(title))
     try:
       if len(author) > 1:
         print("Author name must be longer than 0 characters.")
-        invalid_author = True;
-    except:
-      if author
-  year = input("Enter the year {} was published: ".format(title))
+        invalidauthor = True;
+      else:
+        invalidauthor = False;
+    except: 
+      if not author.isalpha():
+        print("The author's name cannot include numbers.")
+        invalidauthor = True;
+      
+  maxyear = 2022
+  minyear = 868
+  yearinvalid = True
+  while yearinvalid == True:
+    year = input("Enter the year {} was published: ".format(title))
+    try:
+      if int(year) > int(maxyear):
+        print("The year you entered is not valid. Please enter a smaller year")
+        yearinvalid = True
+      elif int(year) > int(minyear):
+        print("The earliest book published was in 868 AD. Please enter a larger year.")
+        yearinvalid = True
+      else:
+        yearinvalid = False
+    except ValueError:
+      print("Your year must be a number.")
+      yearinvalid = True  
+      
   genre = input("Enter the genre of {}: ".format(title))
-  play = True
-  while play == True:
+  
+  maxpages = 3000000
+  minpages = 1
+  invalidpages = True
+  while invalidpages == True:
     pages = input("Enter how many pages {} has: ".format(title))
-    
+    try:
+      if int(pages) > int(maxpages):
+        print("ERROR: the book with the most pages has 3 million pages. The number you entered was higher than this.")
+        invalidpages = True
+      elif int(pages) < int(minpages):
+        print("ERROR: Your book can't have less than 1 page")
+        invalidpages = True
+      else:
+        invalidpages = False
+    except ValueError: 
+      print("Your page value must be a number.")
+      invalidpages = True
+      
   intro_values = [str(author), str(pages), str(genre), str(year)]
   book_info = dict(zip(introductions,intro_values))
   new_book = {title : book_info}
