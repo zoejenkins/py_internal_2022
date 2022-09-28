@@ -15,23 +15,30 @@ books = {
 def add():
   """
   Function for adding a book to the library
-  Takes in values from users inputs and adds them to the 'books' dictionary as a nested dictionary
+  Takes in values from users inputs, makes sure they are valid within set boundaries, then adds them to the 'books' dictionary as a nested dictionary
   """
   introductions = ['Author: ', 'Pages: ', 'Genre: ', 'Year: ']
-  
-  title = input("Enter the books' name: ")
-  
-  invalidauthor = True;
+
+  invalidtitle = True
+  while invalidtitle == True:
+    title = input("Enter the books' name: ")
+    if len(title) < 1 or title.isspace():
+      print("The book must have a title")
+      invalidtitle = True
+    else:
+      invalidtitle = False
+      
+  invalidauthor = True
   while invalidauthor == True:
     author = input("Enter the author of {}: ".format(title))
-    if author.isalpha():
-      invalidauthor = False;
-    elif len(author) < 1:
-      print("Author name must be longer than 0 characters.")
-      invalidauthor = True;
+    if any(char.isdigit() for char in author):
+      print("Author's name cannot include a number")
+      invalidauthor = True
+    elif len(author) < 1 or author.isspace():
+      print("Author must have a name.")
+      invalidauthor = True
     else:
-      print("The author's name cannot include numbers or special characters.")
-      invalidauthor = True;
+      invalidauthor = False
       
   maxyear = 2022
   minyear = 868
@@ -51,18 +58,17 @@ def add():
       print("Your year must be a number.")
       yearinvalid = True  
 
-  invalidgenre = True;
+  invalidgenre = True
   while invalidgenre == True:
     genre = input("Enter the genre of {}: ".format(title))
-    if genre.isalpha():
-      invalidgenre = False;
-    elif len(genre) < 1:
-      print("Name of genre must be longer than 0 characters.")
-      invalidgenre = True;
+    if any(char.isdigit() for char in genre):
+      print("Genre cannot include a number")
+      invalidgenre = True
+    elif len(genre) < 1 or genre.isspace():
+      print("Genre must have a name.")
+      invalidgenre = True
     else:
-      print("The genre cannot include numbers or special characters.")
-      invalidgenre = True;  
-  
+      invalidgenre = False
   
   maxpages = 3000000
   minpages = 1
@@ -90,17 +96,18 @@ def add():
 
 def remove():
   """
-  function that removes a book (nested dictionary) of the user's choice from the book library ('books' dictionary)
+  Function that removes a book (nested dictionary) of the user's choice from the book library ('books' dictionary)
   """
   book_remove = str(input("Which book would you like to remove?: "))
   if book_remove in books:
+    print("{} has been removed from the library".format(book_remove))
     books.pop(book_remove)
   elif book_remove not in books:
     print("That book isn't in the library")
 
 def modify():
   """
-  function that lets user access and modify the number of pages in a book of their choice
+  Function that lets user access and modify the number of pages in a book of their choice
   """
   maxpages = 3000000
   minpages = 1
@@ -155,21 +162,21 @@ def main():
     if choice == "a" or choice == "A":
       add()
       
-    elif (choice == "m") or (choice == "M"):
+    elif choice == "m" or choice == "M":
       modify()
       
-    elif (choice == "l") or (choice == "L"):
+    elif choice == "l" or choice == "L":
       printpage()
       
-    elif (choice == "p") or (choice == "P"):
-      printall();
+    elif choice == "p" or choice == "P":
+      printall()
       
-    elif (choice == "q") or (choice == "Q"):
-      quit = False;
-      print("Goodbye!");
+    elif choice == "q" or choice == "Q":
+      quit = False
+      print("Goodbye!")
 
-    elif (choice == "r") or (choice == "R"):
-      remove();
+    elif choice == "r" or choice == "R":
+      remove()
 
     else:
       print("Invalid option, try again.")
