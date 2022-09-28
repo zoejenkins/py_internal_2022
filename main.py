@@ -22,7 +22,10 @@ def add():
   invalidtitle = True
   while invalidtitle == True:
     title = input("Enter the books' name: ")
-    if len(title) < 1 or title.isspace():
+    if title in books:
+      print("This book already exists in the library")
+      invalidtitle = True
+    elif len(title) < 1 or title.isspace():
       print("The book must have a title")
       invalidtitle = True
     else:
@@ -55,7 +58,7 @@ def add():
       else:
         yearinvalid = False
     except ValueError:
-      print("Your year must be a number.")
+      print("The year published must be a number.")
       yearinvalid = True  
 
   invalidgenre = True
@@ -103,7 +106,7 @@ def remove():
     print("{} has been removed from the library".format(book_remove))
     books.pop(book_remove)
   elif book_remove not in books:
-    print("That book isn't in the library")
+    print("That book isn't in the library. Make sure you spelled everything correctly.")
 
 def modify():
   """
