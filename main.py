@@ -97,17 +97,6 @@ def add():
   books.update(new_book)
   print(books)
 
-def remove():
-  """
-  Function that removes a book (nested dictionary) of the user's choice from the book library ('books' dictionary)
-  """
-  book_remove = str(input("Which book would you like to remove?: "))
-  if book_remove in books:
-    print("{} has been removed from the library".format(book_remove))
-    books.pop(book_remove)
-  elif book_remove not in books:
-    print("That book isn't in the library. Make sure you spelled everything correctly.")
-
 def modify():
   """
   Function that lets user access and modify the number of pages in a book of their choice
@@ -147,6 +136,17 @@ def printpage():
     print('{} has '.format(pagetoprint) + books[pagetoprint]['Pages: '] + ' pages.')
   elif pagetoprint not in books:
     print("That book does not exist in the library.")
+
+def remove():
+  """
+  Function that removes a book (nested dictionary) of the user's choice from the book library ('books' dictionary)
+  """
+  book_remove = str(input("Which book would you like to remove?: "))
+  if book_remove in books:
+    print("{} has been removed from the library".format(book_remove))
+    books.pop(book_remove)
+  elif book_remove not in books:
+    print("That book isn't in the library. Make sure you spelled everything correctly.")
 
 def printall():
   """
