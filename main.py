@@ -24,16 +24,14 @@ def add():
   invalidauthor = True;
   while invalidauthor == True:
     author = input("Enter the author of {}: ".format(title))
-    try:
-      if len(author) > 1:
-        print("Author name must be longer than 0 characters.")
-        invalidauthor = True;
-      else:
-        invalidauthor = False;
-    except: 
-      if not author.isalpha():
-        print("The author's name cannot include numbers.")
-        invalidauthor = True;
+    if author.isalpha():
+      invalidauthor = False;
+    elif len(author) < 1:
+      print("Author name must be longer than 0 characters.")
+      invalidauthor = True;
+    else:
+      print("The author's name cannot include numbers or special characters.")
+      invalidauthor = True;
       
   maxyear = 2022
   minyear = 868
@@ -44,7 +42,7 @@ def add():
       if int(year) > int(maxyear):
         print("The year you entered is not valid. Please enter a smaller year")
         yearinvalid = True
-      elif int(year) > int(minyear):
+      elif int(year) < int(minyear):
         print("The earliest book published was in 868 AD. Please enter a larger year.")
         yearinvalid = True
       else:
@@ -52,8 +50,19 @@ def add():
     except ValueError:
       print("Your year must be a number.")
       yearinvalid = True  
-      
-  genre = input("Enter the genre of {}: ".format(title))
+
+  invalidgenre = True;
+  while invalidgenre == True:
+    genre = input("Enter the genre of {}: ".format(title))
+    if genre.isalpha():
+      invalidgenre = False;
+    elif len(genre) < 1:
+      print("Name of genre must be longer than 0 characters.")
+      invalidgenre = True;
+    else:
+      print("The genre cannot include numbers or special characters.")
+      invalidgenre = True;  
+  
   
   maxpages = 3000000
   minpages = 1
@@ -62,7 +71,7 @@ def add():
     pages = input("Enter how many pages {} has: ".format(title))
     try:
       if int(pages) > int(maxpages):
-        print("ERROR: the book with the most pages has 3 million pages. The number you entered was higher than this.")
+        print("ERROR: the book with the most pages has 3 million pages. Please enter a lower value.")
         invalidpages = True
       elif int(pages) < int(minpages):
         print("ERROR: Your book can't have less than 1 page")
