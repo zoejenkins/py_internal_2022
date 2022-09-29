@@ -1,6 +1,7 @@
 # Welcomes user to library
 print("Welcome to the library!")
 
+
 # Creates a dictionary for all of the books in the library
 books = {
   # Nested dictionary of example book
@@ -12,6 +13,7 @@ books = {
   }
 }
 
+
 def add():
   """
   Function for adding a book to the library
@@ -19,77 +21,79 @@ def add():
   """
   introductions = ['Author: ', 'Pages: ', 'Genre: ', 'Year: ']
 
-  invalidtitle = True
-  while invalidtitle == True:
+  invalid_title = True
+  while invalid_title == True:
     title = input("Enter the books' name: ")
     if title in books:
       print("This book already exists in the library")
-      invalidtitle = True
+      invalid_title = True
     elif len(title) < 1 or title.isspace():
       print("The book must have a title")
-      invalidtitle = True
+      invalid_title = True
     else:
-      invalidtitle = False
+      invalid_title = False
       
-  invalidauthor = True
-  while invalidauthor == True:
+  invalid_author = True
+  while invalid_author == True:
     author = input("Enter the author of {}: ".format(title))
     if any(char.isdigit() for char in author):
       print("Author's name cannot include a number")
-      invalidauthor = True
+      invalid_author = True
     elif len(author) < 1 or author.isspace():
       print("Author must have a name.")
-      invalidauthor = True
+      invalid_author = True
     else:
-      invalidauthor = False
+      invalid_author = False
       
-  maxyear = 2022
-  minyear = 868
-  yearinvalid = True
-  while yearinvalid == True:
+  max_year = 2022
+  min_year = 868
+  
+  invalid_year = True
+  while invalid_year == True:
     year = input("Enter the year {} was published: ".format(title))
     try:
-      if int(year) > int(maxyear):
+      if int(year) > int(max_year):
         print("The year you entered is not valid. Please enter a smaller year")
-        yearinvalid = True
-      elif int(year) < int(minyear):
+        invalid_year = True
+      elif int(year) < int(min_year):
         print("The earliest book published was in 868 AD. Please enter a larger year.")
-        yearinvalid = True
+        invalid_year = True
       else:
-        yearinvalid = False
+        invalid_year = False
     except ValueError:
       print("The year published must be a number.")
-      yearinvalid = True  
+      invalid_year = True  
 
-  invalidgenre = True
-  while invalidgenre == True:
+  invalid_genre = True
+  while invalid_genre == True:
     genre = input("Enter the genre of {}: ".format(title))
     if any(char.isdigit() for char in genre):
       print("Genre cannot include a number")
-      invalidgenre = True
+      invalid_genre = True
     elif len(genre) < 1 or genre.isspace():
       print("Genre must have a name.")
-      invalidgenre = True
+      invalid_genre = True
     else:
-      invalidgenre = False
+      invalid_genre = False
   
-  maxpages = 3000000
-  minpages = 1
-  invalidpages = True
-  while invalidpages == True:
+  max_pages = 3000000
+  min_pages = 1
+  
+  invalid_pages = True
+  while invalid_pages == True:
     pages = input("Enter how many pages {} has: ".format(title))
     try:
-      if int(pages) > int(maxpages):
+      if int(pages) > int(max_pages):
         print("ERROR: the book with the most pages has 3 million pages. Please enter a lower value.")
-        invalidpages = True
-      elif int(pages) < int(minpages):
+        invalid_pages = True
+      elif int(pages) < int(min_pages):
         print("ERROR: Your book can't have less than 1 page")
-        invalidpages = True
+        invalid_pages = True
       else:
-        invalidpages = False
+        invalid_pages = False
     except ValueError: 
       print("Your page value must be a number.")
-      invalidpages = True
+      invalid_pages = True
       
   intro_values = [str(author), str(pages), str(genre), str(year)]
   book_info = dict(zip(introductions,intro_values))
@@ -97,45 +101,48 @@ def add():
   books.update(new_book)
   print(books)
 
+
 def modify():
   """
   Function that lets user access and modify the number of pages in a book of their choice
   """
-  maxpages = 3000000
-  minpages = 1
-  booktomodify = str(input("For which book do you want to modify the number of pages? "))
-  if booktomodify in books:
-    print(booktomodify + " currently has " + books[booktomodify]["Pages: "] + " pages.")
-    invalidpages = True
-    while invalidpages == True:
-      newpagenumber = input("What do you want to update the number to? ")
+  max_pages = 3000000
+  min_pages = 1
+  book_to_modify = str(input("For which book do you want to modify the number of pages? "))
+  if book_to_modify in books:
+    print(book_to_modify + " currently has " + books[book_to_modify]["Pages: "] + " pages.")
+    invalid_pages = True
+    while invalid_pages == True:
+      new_page_number = input("What do you want to update the number to? ")
       try:
-        if int(newpagenumber) > int(maxpages):
+        if int(new_page_number) > int(max_pages):
           print("ERROR: the book with the most pages has 3 million pages. The number you entered was higher than this.")
-          invalidpages = True
-        elif int(newpagenumber) < int(minpages):
+          invalid_pages = True
+        elif int(new_page_number) < int(min_pages):
           print("ERROR: Your book can't have less than 1 page")
-          invalidpages = True
+          invalid_pages = True
         else:
-          books[booktomodify]["Pages: "] = newpagenumber
-          print(booktomodify + " now has " + books[booktomodify]["Pages: "] + " pages.")
-          invalidpages = False
+          books[book_to_modify]["Pages: "] = new_page_number
+          print(book_to_modify + " now has " + books[book_to_modify]["Pages: "] + " pages.")
+          invalid_pages = False
       except ValueError: 
         print("Your page value must be a number.")
-        invalidpages = True
+        invalid_pages = True
 
-  elif booktomodify not in books:
+  elif book_to_modify not in books:
     print("That book does not exist in the library. Make sure you spelled everything correctly.")
 
-def printpage():
+
+def print_page():
   """
   function that prints out how many pages a specific book has from the 'books' dictionary, chosen by the user
   """
-  pagetoprint = str(input("For which book do you want to know the number of pages? "))
-  if pagetoprint in books:
-    print('{} has '.format(pagetoprint) + books[pagetoprint]['Pages: '] + ' pages.')
-  elif pagetoprint not in books:
+  page_to_print = str(input("For which book do you want to know the number of pages? "))
+  if page_to_print in books:
+    print('{} has '.format(page_to_print) + books[page_to_print]['Pages: '] + ' pages.')
+  elif page_to_print not in books:
     print("That book does not exist in the library.")
+
 
 def remove():
   """
@@ -148,11 +155,13 @@ def remove():
   elif book_remove not in books:
     print("That book isn't in the library. Make sure you spelled everything correctly.")
 
-def printall():
+
+def print_all():
   """
   function that prints out the entire 'books' dictionary
   """
   print(books)
+
 
 def main():
   """
@@ -169,10 +178,10 @@ def main():
       modify()
       
     elif choice == "l" or choice == "L":
-      printpage()
+      print_page()
       
     elif choice == "p" or choice == "P":
-      printall()
+      print_all()
       
     elif choice == "q" or choice == "Q":
       quit = False
@@ -183,6 +192,7 @@ def main():
 
     else:
       print("Invalid option, try again.")
+
 
 # calls the main function
 main()
