@@ -1,3 +1,5 @@
+"""This program stores information on a library of books that are entered by the user."""
+
 # Welcomes user to library
 print("Welcome to the library!")
 
@@ -6,18 +8,19 @@ print("Welcome to the library!")
 books = {
   # Nested dictionary of example book
   'Harry Potter': {
-    'Author: ' : 'J.K. Rowling',
-    'Pages: ' : '600',
-    'Genre: ' : 'Fantasy',
-    'Year: ' : '2000',
+    'Author: ': 'J.K. Rowling',
+    'Pages: ': '600',
+    'Genre: ': 'Fantasy',
+    'Year: ': '2000',
   }
 }
 
 
 def add():
-  """
-  Function for adding a book to the library
-  Takes in values from users inputs, makes sure they are valid within set boundaries, then adds them to the 'books' dictionary as a nested dictionary
+  """Function for adding a book to the library.
+
+  Takes in values from users inputs, makes sure they are valid within set boundaries, then adds them to the 'books' dictionary as a nested dictionary.
+
   """
   introductions = ['Author: ', 'Pages: ', 'Genre: ', 'Year: ']
 
@@ -32,7 +35,7 @@ def add():
       invalid_title = True
     else:
       invalid_title = False
-      
+
   invalid_author = True
   while invalid_author == True:
     author = input("Enter the author of {}: ".format(title))
@@ -44,10 +47,10 @@ def add():
       invalid_author = True
     else:
       invalid_author = False
-      
+
   max_year = 2022
   min_year = 868
-  
+
   invalid_year = True
   while invalid_year == True:
     year = input("Enter the year {} was published: ".format(title))
@@ -62,7 +65,7 @@ def add():
         invalid_year = False
     except ValueError:
       print("The year published must be a number.")
-      invalid_year = True  
+      invalid_year = True
 
   invalid_genre = True
   while invalid_genre == True:
@@ -75,10 +78,10 @@ def add():
       invalid_genre = True
     else:
       invalid_genre = False
-  
+
   max_pages = 3000000
   min_pages = 1
-  
+
   invalid_pages = True
   while invalid_pages == True:
     pages = input("Enter how many pages {} has: ".format(title))
@@ -91,21 +94,19 @@ def add():
         invalid_pages = True
       else:
         invalid_pages = False
-    except ValueError: 
+    except ValueError:
       print("Your page value must be a number.")
       invalid_pages = True
-      
+
   intro_values = [str(author), str(pages), str(genre), str(year)]
-  book_info = dict(zip(introductions,intro_values))
-  new_book = {title : book_info}
+  book_info = dict(zip(introductions, intro_values))
+  new_book = {title: book_info}
   books.update(new_book)
   print(books)
 
 
 def modify():
-  """
-  Function that lets user access and modify the number of pages in a book of their choice
-  """
+  """Function that lets user access and modify the number of pages in a book of their choice."""
   max_pages = 3000000
   min_pages = 1
   book_to_modify = str(input("For which book do you want to modify the number of pages? "))
@@ -125,7 +126,7 @@ def modify():
           books[book_to_modify]["Pages: "] = new_page_number
           print(book_to_modify + " now has " + books[book_to_modify]["Pages: "] + " pages.")
           invalid_pages = False
-      except ValueError: 
+      except ValueError:
         print("Your page value must be a number.")
         invalid_pages = True
 
@@ -134,9 +135,7 @@ def modify():
 
 
 def print_page():
-  """
-  function that prints out how many pages a specific book has from the 'books' dictionary, chosen by the user
-  """
+  """Function that prints out how many pages a specific book has from the 'books' dictionary, chosen by the user."""
   page_to_print = str(input("For which book do you want to know the number of pages? "))
   if page_to_print in books:
     print('{} has '.format(page_to_print) + books[page_to_print]['Pages: '] + ' pages.')
@@ -145,9 +144,7 @@ def print_page():
 
 
 def remove():
-  """
-  Function that removes a book (nested dictionary) of the user's choice from the book library ('books' dictionary)
-  """
+  """Function that removes a book (nested dictionary) of the user's choice from the book library ('books' dictionary)."""
   book_remove = str(input("Which book would you like to remove?: "))
   if book_remove in books:
     print("{} has been removed from the library".format(book_remove))
@@ -157,32 +154,32 @@ def remove():
 
 
 def print_all():
-  """
-  function that prints out the entire 'books' dictionary
-  """
+  """Function that prints out the entire 'books' dictionary."""
   print(books)
 
 
 def main():
-  """
-  main function of the program that runs on a loop; asks users to select which function they would like to use, uses if/else to determine which function to run, runs the chosen function from there
+  """Main function of the program that runs on a loop.
+
+  Asks users to select which function they would like to use, uses if/else to determine which function to run, runs the chosen function from there
+
   """
   quit = True
   while quit == True:
-    choice = input("Please enter:\n (A) To add a book to the library\n (M) To modify the number of pages in an existing book\n (L) To print out the number of pages of a book\n (R) To remove a book from the library\n (P) To print out a list of every book in the library\n (Q) To quit\n");
-    
+    choice = input("Please enter:\n (A) To add a book to the library\n (M) To modify the number of pages in an existing book\n (L) To print out the number of pages of a book\n (R) To remove a book from the library\n (P) To print out a list of every book in the library\n (Q) To quit\n")
+
     if choice == "a" or choice == "A":
       add()
-      
+
     elif choice == "m" or choice == "M":
       modify()
-      
+
     elif choice == "l" or choice == "L":
       print_page()
-      
+
     elif choice == "p" or choice == "P":
       print_all()
-      
+
     elif choice == "q" or choice == "Q":
       quit = False
       print("Goodbye!")
